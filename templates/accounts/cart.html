@@ -24,7 +24,7 @@
                                     <figure class="itemside">
                                         <div class="aside"><img src="/media/{{ item.product.product_images.first.image }}" class="img-sm"></div>
                                         <figcaption class="info">
-                                            <a href="#" class="title text-dark">{{ item.product.name }}</a>
+                                            <a href="{% url 'get_product' item.product.slug %}" class="title text-dark">{{ item.product.product_name }}</a>
                                             <p class="text-muted small">Size: {{ item.size_variant }}, Color: {{ item.color_variant }}, <br> Brand: {{ item.product.brand }}</p>
                                         </figcaption>
                                     </figure>
@@ -39,7 +39,7 @@
                                 </td>
                                 <td> 
                                     <div class="price-wrap"> 
-                                        <var class="price">${{ item.get_product_price }}</var> 
+                                        <var class="price">₹ {{ item.get_product_price }}</var> 
                                     </div> <!-- price-wrap .// -->
                                 </td>
                                 <td class="text-right"> 
@@ -51,8 +51,8 @@
                         </tbody>
                     </table>
                     <div class="card-body border-top">
-                        <a href="#" class="btn btn-primary float-md-right"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
-                        <a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+                        <a href="#" class="btn btn-primary float-md-right"> Place Order <i class="fa fa-chevron-right"></i> </a>
+                        <a href="{% url 'index' %}" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Back to shopping </a>
                     </div> 
                 </div> <!-- card.// -->
 
@@ -65,6 +65,7 @@
                     <div class="card-body">
                         <form method="POST" action="{% url 'cart' %}">
                             {% csrf_token %}
+                            {% include 'base/alert.html' %}
                             <div class="form-group">
                                 <label>Have coupon?</label>
                                 <div class="input-group">
@@ -74,6 +75,9 @@
                                     </span>
                                 </div>
                             </div>
+                            {% if cart.coupon %}
+                            <a href="{% url 'remove_coupon' cart.uid %}" class="btn btn-success">{{cart.coupon.coupon_code}}</a>
+                            {% endif %}
                         </form>
                     </div> <!-- card-body.// -->
                 </div>  <!-- card .// -->
@@ -81,15 +85,16 @@
                     <div class="card-body">
                         <dl class="dlist-align">
                             <dt>Total price:</dt>
-                            <dd class="text-right">USD {{ cart.get_cart_total }}</dd>
+                            <dd class="text-right">₹{{cart.get_cart_total.total_price}}</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Discount:</dt>
-                            <dd class="text-right">USD {{ cart.coupon.discount_price }}</dd>
+                            <dd class="text-right">-₹{{cart.get_cart_total.discount_amount}}</dd>
                         </dl>
+                        <hr>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd class="text-right  h5"><strong>${{ cart.get_cart_total }}</strong></dd>
+                            <dd class="text-right  h5"><strong>₹{{ cart.get_cart_total.discounted_total }}</strong></dd>
                         </dl>
                         <hr>
                         <p class="text-center mb-3">

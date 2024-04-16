@@ -36,10 +36,21 @@ class Cart(BaseModel):
             # if cart_items.size_variant:
             #     size_variant_price = cart_items.size_variant.price
             #     price.append(size_variant_price)
+        # if self.coupon:
+        #     if self.coupon.minimum_amount < sum(price):
+        #         return sum(price) - self.coupon.discount
+        # return sum(price)
+        total_price = sum(price)
+        discount_amount = 0
         if self.coupon:
             if self.coupon.minimum_amount < sum(price):
-                return sum(price) - self.coupon.discount_price
-        return sum(price)
+                discount_amount = self.coupon.discount
+        discounted_total = total_price - discount_amount
+        return {
+            'total_price': total_price,
+            'discount_amount': discount_amount,
+            'discounted_total': discounted_total,
+        }
 
 
 class CartItems(BaseModel):

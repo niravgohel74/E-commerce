@@ -4,6 +4,7 @@ from accounts.views import *
 urlpatterns = [
     path("register/", register_page, name="register"),
     path("login/", login_page, name="login"),
+    path("logout/", logout_view, name="logout"),
     path("activate/<email_token>/", activate_email, name="activate_email"),
     path("cart/", cart, name="cart"),
     path("add-to-cart/<uid>/", add_to_cart, name="add_to_cart"),
