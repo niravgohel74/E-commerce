@@ -10,6 +10,7 @@ from accounts.models import *
 from django.shortcuts import get_object_or_404
 
 
+
 # Create your views here.
 
 def login_page(request):
@@ -31,10 +32,8 @@ def login_page(request):
         user_obj = authenticate(username = email, password = password)
         if user_obj:
             login(request, user_obj)
-            username_parts = user_obj.username.split('@')
-            username = username_parts[0] if username_parts else ''
-            print(username)
-            return redirect('/', {'username': username})
+            return redirect('/')
+            
         else:
             messages.warning(request, 'Invalid credentials')
             return HttpResponseRedirect(request.path_info)
