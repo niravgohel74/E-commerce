@@ -146,3 +146,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "niravgohel2000@gmail.com"
 EMAIL_HOST_PASSWORD = "kspkuwmuyhnosuhv"
 
+
+KEY = "rzp_test_qCRkdtbbt4KsLQ"
+SECRET = "eqx2bURgmWVDHQFQ9ql3mfjB"
+
