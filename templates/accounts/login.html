@@ -1,42 +1,51 @@
 {% extends "base/base.html" %}
-
-
 {% block start %}
+<link
+      href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+<style>
+  .form-control {
+    border-radius: 50px;
+  }
+  .btn{
+    border-radius: 50px;
+  }
+  .btn-light img{
+    height: 20px;
+  }
+</style>
 
 <section class="section-conten padding-y" style="min-height:84vh">
-
-    <!-- ============================ COMPONENT LOGIN   ================================= -->
-        <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
-          <div class="card-body">
-          <h4 class="card-title mb-4">Sign in</h4>
-          <form method="POST">
-            {% csrf_token %}
-            {% include "base/alert.html" %}
-            
-            
-            <div class="form-group">
-                 <input name="email" class="form-control" placeholder="Email" type="text">
-              </div> <!-- form-group// -->
-              <div class="form-group">
-                <input name="password" class="form-control" placeholder="Password" type="password">
-              </div> <!-- form-group// -->
-              
-              <div class="form-group">
-                  <a href="#" class="float-right">Forgot password?</a> 
-                <label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
-              </div> <!-- form-group form-check .// -->
-              <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-              </div> <!-- form-group// -->    
-          </form>
-          </div> <!-- card-body.// -->
-        </div> <!-- card .// -->
-    
-         <p class="text-center mt-4">Don't have account? <a href="#">Sign up</a></p>
-         <br><br>
-    <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
-    
-    
-    </section>
+  <div class="card mx-auto" style="max-width: 380px; margin-top:100px; border-radius: 10px;">
+    <div class="card-body">
+      <h4 class="card-title mb-4 text-center">Sign in</h4>
+      <form method="POST">
+        {% csrf_token %}
+        {% include "base/alert.html" %}
+        <div class="form-group">
+          <input name="email" class="form-control" placeholder="Email" type="text">
+        </div>
+        <div class="form-group">
+          <input name="password" class="form-control" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+          <a href="#" class="float-right">Forgot password?</a>
+          <label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked="">
+            <div class="custom-control-label"> Remember </div>
+          </label>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block"> Login </button>
+        </div>
+        <p class="text-center">or</p>
+        <a href="#" class="btn btn-light btn-block">
+          <img src="/media/images/google_logo.png" alt="" class="google-icon mr-2"> Login with Google
+        </a>
+      <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
+    </form>
+    </div>
+  </div>
+</section>
 
 {% endblock %}

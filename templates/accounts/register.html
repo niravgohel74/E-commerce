@@ -1,45 +1,51 @@
 {% extends "base/base.html" %}
-
-
 {% block start %}
+<link
+      href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+<style>
+    .form-control {
+      border-radius: 50px;
+    }
+    .btn{
+      border-radius: 50px;
+    }
+    .btn-light img{
+      height: 20px;
+    }
+  </style>
 
 <section class="section-conten padding-y" style="min-height:84vh">
-
-    <!-- ============================ COMPONENT LOGIN   ================================= -->
-    <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+    <div class="card mx-auto" style="max-width: 380px; margin-top:100px; border-radius: 10px;">
         <div class="card-body">
-            <h4 class="card-title mb-4">Sign Up</h4>
+            <h4 class="card-title mb-4 text-center">Sign Up</h4>
             <form method="POST">
                 {% csrf_token %}
                 {% include "base/alert.html" %}
-
                 <div class="form-group">
                     <input  class="form-control" required placeholder="First Name" name="first_name" type="text">
                 </div>
                 <div class="form-group">
                     <input  class="form-control" required placeholder="Last Name" name="last_name" type="text">
                 </div>
-
                 <div class="form-group">
                     <input  class="form-control" required placeholder="Email" name="email" type="text">
-                </div> <!-- form-group// -->
+                </div>
                 <div class="form-group">
                     <input class="form-control" required placeholder="Password" name="password" type="password">
-                </div> <!-- form-group// -->
-
-
+                </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block"> Register </button>
-                </div> <!-- form-group// -->
+                </div>
+                <p class="text-center">or</p>
+                <a href="#" class="btn btn-light btn-block">
+                    <img src="/media/images/google_logo.png" alt="" class="google-icon mr-2"> Sign up with Google
+                </a>
+                <p class="text-center mt-4">Already have account? <a href="{% url 'login' %}">Sign in</a></p>
             </form>
-        </div> <!-- card-body.// -->
-    </div> <!-- card .// -->
-
-    <p class="text-center mt-4">Already have account? <a href="#">Sign in</a></p>
-    <br><br>
-    <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
-
-
+        </div>
+    </div>
 </section>
 
 {% endblock %}
