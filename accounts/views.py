@@ -8,6 +8,7 @@ from .models import Profile
 from products.models import *
 from accounts.models import *
 from django.shortcuts import get_object_or_404
+import razorpay
 
 
 
@@ -94,10 +95,15 @@ def add_to_cart(request, uid):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER') )
 
+from django.conf import settings
 def cart(request):
-    cart_obj = Cart.objects.filter(is_paid=False, user = request.user).first()
-    cart_item = CartItems.objects.filter(cart = cart_obj)
+    try:
+        cart_obj = Cart.objects.filter(is_paid=False, user = request.user).first()
+    except Exception as e:
+        print(e)
     
+    
+    cart_item = CartItems.objects.filter(cart = cart_obj)
 
     if request.method == 'POST':
         coupon = request.POST.get('coupon')
@@ -124,7 +130,15 @@ def cart(request):
         cart_obj.save()
         messages.success(request, 'Coupon Applied')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    context = {'cart': cart_obj, 'cart_item': cart_item}
+    
+
+    client = razorpay.Client(auth=(settings.KEY, settings.SECRET))
+    payment = client.order.create({'amount': cart_obj.get_cart_total()['total_price'] * 100, 'currency': 'INR', 'payment_capture': '1'})
+    cart_obj.razorpay_order_id = payment['id']
+    cart_obj.save()
+    print(payment)
+    # payment = None
+    context = {'cart': cart_obj, 'cart_item': cart_item, 'payment': payment}
     return render(request, 'accounts/cart.html', context)
 
 def remove_cart(request, cart_item_uid):
@@ -141,3 +155,16 @@ def remove_coupon(request, cart_id):
     cart.save()
     messages.warning(request, 'Coupon Removed')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def success(request):
+    order_id = request.GET.get('order_id')
+    # payment_id = request.GET.get('payment_id')
+    cart = Cart.objects.get(razorpay_order_id = order_id)
+    # cart.razorpay_payment_id = payment_id
+    cart.is_paid = True
+    cart.save()
+    return HttpResponse('Payment Successful')
+
+
+

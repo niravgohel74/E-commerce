@@ -24,6 +24,9 @@ class Cart(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='carts')
     coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True, blank=True, related_name='coupons')
     is_paid = models.BooleanField(default=False)
+    razorpay_order_id = models.CharField(max_length=255, null=True, blank=True)
+    razorpay_payment_id = models.CharField(max_length=255, null=True, blank=True)
+    razorpay_signature_id = models.CharField(max_length=255, null=True, blank=True)
 
     def get_cart_total(self):
         cart_items = self.cart_items.all()
