@@ -166,5 +166,3 @@ def success(request):
     cart.save()
     return HttpResponse('Payment Successful')
 
-
-

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Invoice Receipt</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .header { text-align: center; padding: 20px; background-color: #f8f8f8; }
+        .section { margin: 20px; }
+        .footer { text-align: center; font-size: 0.8em; color: #888; padding: 20px; background-color: #f8f8f8; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><strong>Invoice Receipt</strong></h1>
+        <p><strong>Service Provider:</strong> Django Ecommerce</p>
+        <p>1001/A, The Capital B Wing, 10th Floor, Bandra Kurla Complex, Bandra (E), Mumbai.</p>
+    </div>
+    <div class="section">
+        <p><strong>Order Date:</strong> (order_date)</p>
+        <p><strong>Invoice Number:</strong> (order_id)</p>
+        <p><strong>Customer Name & Address:</strong> (customer_name) (customer_address)</p>
+    </div>
+    <div class="section">
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Bill Amount</th>
+                <th>Payment Method</th>
+            </tr>
+            <tr>
+                <td>(item_description)</td>
+                <td>(item_amount)</td>
+                <td>(payment_method)</td>
+            </tr>
+        </table>
+    </div>
+    <div class="section">
+        <p>Please Note: Due to timing, the bill payment will reflect in next 48 hours in your account. Please contact our customer support for any queries regarding this order.</p>
+    </div>
+    <div class="footer">
+        <p>Thank you for using our service</p>
+        <p>(This is computer generated receipt and does not require physical signature.)</p>
+    </div>
+</body>
+</html>
