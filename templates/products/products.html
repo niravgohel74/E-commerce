@@ -9,11 +9,11 @@
         <aside class="col-md-6">
           <article class="gallery-wrap">
             <div class="img-big-wrap">
-              <div> <a href="#"><img src="/media/{{product.product_images.first.image}}"></a></div>
+              <div> <a href="#"><img id="big-img" src="/media/{{product.product_images.first.image}}"></a></div>
             </div>
             <div class="thumbs-wrap">
               {% for image in product.product_images.all %}
-              <a href="#" class="item-thumb"> <img src="/media/{{image.image}}"></a>
+              <a href="#" class="item-thumb"> <img class= "thumb-img" src="/media/{{image.image}}"></a>
               {% endfor %}
             </div>
           </article>
@@ -38,26 +38,20 @@
               <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
             </div>
             <div class="mb-3">
-              <var class="price h4">$
+              <var class="price h4">
                 {% if updated_price %}
                 {{updated_price}}
                 {% else %}
-                {{product.price}}
+                ₹{{product.price}}
                 {% endif %}
                 .00</var>
-              <span class="text-muted">/per kg</span>
+              <span class="text-muted"></span>
             </div>
-            <p>{{product.product_desription}}</p>
-            <dl class="row">
-              <dt class="col-sm-3">Model#</dt>
-              <dd class="col-sm-9">Odsy-1000</dd>
-
+            <p>{{product.product_description}}</p>
+            <!-- <dl class="row">
               <dt class="col-sm-3">Color</dt>
               <dd class="col-sm-9">Brown</dd>
-
-              <dt class="col-sm-3">Delivery</dt>
-              <dd class="col-sm-9">Russia, USA, and Europe </dd>
-            </dl>
+            </dl> -->
             <hr>
             <div class="form-row">
               <div class="form-group col-md flex-grow-0">
@@ -101,6 +95,20 @@
   function get_correct_price(size) {
     window.location.href = window.location.pathname + `?size=${size}`
   }
+
+
+  const thumbnailImage = document.querySelectorAll('.thumb-img')
+  const bigImage = document.getElementById('big-img')
+
+  thumbnailImage.forEach(thumb => {
+    thumb.addEventListener('click', function(event){
+      event.preventDefault();
+      const newImgsrc = this.getAttribute('src');
+
+      bigImage.setAttribute('src', newImgsrc);
+    });
+  });  
+
 </script>
 
 {% endblock %}
