@@ -147,6 +147,10 @@ EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
 
 
-KEY = ""
-SECRET = ""
+from dotenv import load_dotenv
+
+load_dotenv()
+
+KEY = os.environ.get('KEY')
+SECRET = os.environ.get('SECRET')
 
